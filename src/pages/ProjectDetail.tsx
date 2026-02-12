@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, FileText, ExternalLink } from "lucide-react";
+import { ArrowLeft, FileText, ExternalLink, Download } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Tag } from "@/components/Tag";
 
@@ -80,17 +80,19 @@ export default function ProjectDetail() {
         <section className="mb-8">
           <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Deliverables</h2>
           <div className="flex flex-wrap gap-3">
-            {project.deliverables.map((d) => (
-              <a
-                key={d.label}
-                href={d.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
-              >
-                <FileText className="w-4 h-4" /> {d.label}
-              </a>
-            ))}
+            {project.deliverables.map((d) => {
+              const isDownload = d.href.startsWith("/");
+              return (
+                <a
+                  key={d.label}
+                  href={d.href}
+                  {...(isDownload ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
+                >
+                  {isDownload ? <Download className="w-4 h-4" /> : <FileText className="w-4 h-4" />} {d.label}
+                </a>
+              );
+            })}
             {project.evidencePackLink && (
               <a
                 href={project.evidencePackLink}
