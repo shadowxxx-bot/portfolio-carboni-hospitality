@@ -52,8 +52,8 @@ export const projects: Project[] = [
       "CAPEX planning, phasing (2026\u20132028), and hotel valuation using NPV / IRR / exit cap rate",
     ],
     deliverables: [
-      { label: "Slides / Presentation", href: "https://drive.google.com/file/d/1pT0Pm88e8Ph651hMEiD5PZ3eEI3TKukS/view?usp=drive_link" },
-      { label: "Executive Summary (PDF)", href: "https://drive.google.com/file/d/1O05-_nBk63YlXsygxrXz19SaIM3QhD7J/view?usp=drive_link" },
+      { label: "Slides / Presentation", href: "/files/ham_presentation.pdf" },
+      { label: "Executive Summary (PDF)", href: "/files/ham_executive_summary.pdf" },
       { label: "Download Excel Model", href: "/files/team5_hotel_asset_management_model.xlsx" },
     ],
     results: [

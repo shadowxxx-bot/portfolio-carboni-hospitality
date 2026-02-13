@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Download, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
+import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { featuredProjects } from "@/data/projects";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -23,9 +23,11 @@ export default function Home() {
           <div className="flex flex-wrap gap-3 mb-10">
             <a
               href={siteConfig.links.cv}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-full bg-accent text-white hover:bg-accent-hover transition-colors"
             >
-              <Download className="w-4 h-4" /> Download CV
+              <FileText className="w-4 h-4" /> View CV
             </a>
             <a
               href={siteConfig.links.linkedin}

@@ -9,13 +9,13 @@ export const siteConfig = {
 
   links: {
     cv: "/cv-alexandre-carboni.pdf",       // Place PDF in /public
-    linkedin: "https://linkedin.com/in/",  // Update with your LinkedIn URL
-    email: "alexandre.carboni@ehl.ch",     // Update with your email
-    phone: "+41 00 000 00 00",             // Update with your phone
+    linkedin: "https://linkedin.com/in/alexandre-carboni-322023176",
+    email: "alexandre.carboni@ehl.ch",
+    phone: "+41 79 550 37 41",
   },
 
   hero: {
-    languages: ["French (native)", "English (C1)", "Italian (B1)"],
+    languages: ["French (native)", "English (C1)", "Russian (B1)", "German (basic)"],
     tools: ["Excel / VBA", "Power BI", "Python", "SQL", "Bloomberg"],
     focusAreas: ["Valuation", "Forecasting", "Strategy"],
   },

@@ -81,9 +81,8 @@ export default function ProjectDetail() {
           <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Deliverables</h2>
           <div className="flex flex-wrap gap-3">
             {project.deliverables.map((d) => {
-              const isLocal = d.href.startsWith("/");
               const isVideo = /\.(mp4|webm|mov)$/i.test(d.href);
-              const isDownload = isLocal && !isVideo;
+              const isDownload = /\.(xlsx?|csv|zip)$/i.test(d.href);
               const icon = isVideo
                 ? <Play className="w-4 h-4" />
                 : isDownload
