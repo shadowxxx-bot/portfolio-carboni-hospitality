@@ -1,5 +1,6 @@
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import { DockVariantProvider } from "@/contexts/DockVariantContext";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -7,10 +8,12 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
+    <DockVariantProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
+    </DockVariantProvider>
   );
 }

@@ -1,12 +1,13 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { featuredProjects } from "@/data/projects";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ContactBlock } from "@/components/ContactBlock";
 import { Tag } from "@/components/Tag";
+import { useDockVariant } from "@/contexts/DockVariantContext";
 
 /** Shared content — rendered in both fixed visual layer and flow layer */
 function FeaturedContent() {
@@ -32,9 +33,21 @@ function FeaturedContent() {
 
 export default function Home() {
   const spacerRef = useRef<HTMLDivElement>(null);
+  const { setVariant } = useDockVariant();
   const { scrollYProgress } = useScroll({
     target: spacerRef,
     offset: ["start start", "end start"],
+  });
+
+  // Set dock to dark on mount (hero visible), reset on unmount
+  useEffect(() => {
+    setVariant("dark");
+    return () => setVariant("light");
+  }, [setVariant]);
+
+  // Switch dock variant as hero slides away
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setVariant(v > 0.5 ? "light" : "dark");
   });
 
   // ── Hero door: slides UP (0 → -100%) ──
