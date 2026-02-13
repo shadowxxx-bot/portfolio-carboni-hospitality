@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, FileText, ExternalLink, Download } from "lucide-react";
+import { ArrowLeft, FileText, ExternalLink, Download, Play } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Tag } from "@/components/Tag";
 
@@ -81,7 +81,14 @@ export default function ProjectDetail() {
           <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Deliverables</h2>
           <div className="flex flex-wrap gap-3">
             {project.deliverables.map((d) => {
-              const isDownload = d.href.startsWith("/");
+              const isLocal = d.href.startsWith("/");
+              const isVideo = /\.(mp4|webm|mov)$/i.test(d.href);
+              const isDownload = isLocal && !isVideo;
+              const icon = isVideo
+                ? <Play className="w-4 h-4" />
+                : isDownload
+                  ? <Download className="w-4 h-4" />
+                  : <FileText className="w-4 h-4" />;
               return (
                 <a
                   key={d.label}
@@ -89,7 +96,7 @@ export default function ProjectDetail() {
                   {...(isDownload ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
                   className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
                 >
-                  {isDownload ? <Download className="w-4 h-4" /> : <FileText className="w-4 h-4" />} {d.label}
+                  {icon} {d.label}
                 </a>
               );
             })}
