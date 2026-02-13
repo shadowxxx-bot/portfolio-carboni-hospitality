@@ -2,27 +2,32 @@
 // Edit this file to update the Personal page content.
 
 export const personal = {
-  whatItBringsMe: `Outside of work and academics, I invest time in activities that build discipline, resilience, and perspective. Whether it's pushing through a multi-day trek, refining a drone build, or training for endurance events — the common thread is structured effort toward a tangible result. These pursuits keep me grounded and fuel the focus I bring to professional challenges.`,
+  whatItBringsMe: `Outside of work and academics, I dedicate time to pursuits that sharpen discipline, resilience, and structured thinking. From multi-day treks in the Swiss Alps to building an FPV drone from scratch and years of competitive swimming — each activity has reinforced transferable skills I rely on professionally: planning under uncertainty, sustained focus, and iterative problem-solving. My current goal is to complete an Ironman, a challenge that demands consistency across multiple disciplines and long-term commitment.`,
 
   activities: [
     {
-      title: "Trekking & Travel",
-      description: "Multi-day alpine treks and solo travel across Europe and beyond.",
+      title: "Trekking",
+      description:
+        "I regularly go on multi-day treks — solo or in small groups — with bivouac setups across the Swiss Alps. My most notable ascent is Haute Cime (Dents du Midi) at 3,257 m. These expeditions sharpen planning, risk assessment, and self-reliance in unpredictable conditions.",
+      image: "/personal/trek.jpg",
+      imageAlt: "Trekking in the Swiss Alps — Dents du Midi",
+      imagePosition: "right" as const,
     },
     {
-      title: "Swimming — Swiss competitive level",
-      description: "Years of competitive training sharpening discipline and consistency.",
+      title: "FPV Drone",
+      description:
+        "I built a custom FPV racing drone from scratch — from soldering ESCs and flight controllers to tuning PID loops. I learned to fly through simulators before transitioning to real flights. The project taught me rapid self-learning, electronic troubleshooting, and the value of iterating through failure.",
+      image: "/personal/drone.jpg",
+      imageAlt: "FPV drone build",
+      imagePosition: "left" as const,
     },
     {
-      title: "FPV Drone Building & Endurance Training",
-      description: "Designing, assembling, and flying custom FPV racing drones. Complemented by structured endurance training.",
+      title: "Swimming",
+      description:
+        "I trained competitively for roughly eight years, reaching national-level competitions and earning multiple medals. The discipline required rigorous daily training, mental resilience under pressure, and a long-term commitment to incremental improvement — habits that still define my work ethic today.",
+      image: null,
+      imageAlt: "Competitive swimming",
+      imagePosition: "right" as const,
     },
-  ],
-
-  // Place images in /public/personal/ — max 6
-  gallery: [
-    { src: "/personal/photo-1.jpg", alt: "Trekking in the Alps" },
-    { src: "/personal/photo-2.jpg", alt: "Swimming competition" },
-    { src: "/personal/photo-3.jpg", alt: "FPV drone build" },
   ],
 };
