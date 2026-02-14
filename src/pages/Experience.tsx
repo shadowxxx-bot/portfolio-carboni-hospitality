@@ -5,7 +5,7 @@ import { FileText } from "lucide-react";
 export default function Experience() {
   return (
     <div className="bg-white min-h-screen py-16">
-      <div className="container mx-auto px-6 max-w-3xl">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <h1 className="text-3xl font-bold text-text-primary mb-2">Experience</h1>
         <p className="text-sm text-text-secondary mb-12">
           Professional and extracurricular roles in reverse chronological order.

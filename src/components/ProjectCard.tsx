@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Tag } from "./Tag";
+import { FeyButton } from "@/components/ui/fey-button";
 import type { Project } from "@/data/projects";
 
 interface ProjectCardProps {
@@ -26,31 +26,27 @@ export function ProjectCard({ project, compact }: ProjectCardProps) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="group block border border-gray-100 rounded-lg p-6 hover:shadow-md hover:border-gray-200 transition-all"
+      className="group relative block rounded-lg overflow-hidden h-64"
     >
-      <p className="text-xs text-text-secondary mb-2">{project.cardContext}</p>
-      <h3 className="text-lg font-semibold text-text-primary mb-3 group-hover:text-accent transition-colors">
-        {project.title}
-      </h3>
-      <ul className="space-y-1.5 mb-4">
-        {project.cardBullets.map((b, i) => (
-          <li key={i} className="text-sm text-text-secondary flex gap-2">
-            <span className="mt-1.5 w-1 h-1 rounded-full bg-text-secondary shrink-0" />
-            {b}
-          </li>
-        ))}
-      </ul>
-      <p className="text-xs text-text-secondary mb-4 italic">
-        Deliverable: {project.cardDeliverable}
-      </p>
-      <div className="flex flex-wrap gap-1.5 mb-4">
-        {project.tags.slice(0, 4).map((t) => (
-          <Tag key={t} label={t} />
-        ))}
+      {/* Background image */}
+      <img
+        src={project.coverImage}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+
+      {/* Dark overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
+
+      {/* Content */}
+      <div className="relative h-full flex flex-col justify-end p-6">
+        <h3 className="text-lg font-semibold text-white mb-4 drop-shadow-sm">
+          {project.title}
+        </h3>
+        <FeyButton>
+          View case <ArrowRight className="w-3.5 h-3.5" />
+        </FeyButton>
       </div>
-      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:gap-2.5 transition-all">
-        View case <ArrowRight className="w-3.5 h-3.5" />
-      </span>
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import { featuredProjects, secondaryProjects } from "@/data/projects";
-import { ProjectCard } from "@/components/ProjectCard";
+import { FocusCards } from "@/components/ui/focus-cards";
 
 export default function Projects() {
   return (
@@ -12,19 +12,13 @@ export default function Projects() {
 
         {/* Featured */}
         <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-4">Featured</h2>
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-          {featuredProjects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
+        <div className="mb-16">
+          <FocusCards projects={featuredProjects} />
         </div>
 
         {/* Secondary */}
         <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-4">Secondary projects</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {secondaryProjects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
-        </div>
+        <FocusCards projects={secondaryProjects} />
       </div>
     </div>
   );

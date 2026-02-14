@@ -9,6 +9,7 @@ export interface Project {
   oneLiner: string;
   featured: boolean;
   // Card fields
+  coverImage: string;
   cardContext: string;
   cardBullets: [string, string];
   cardDeliverable: string;
@@ -28,6 +29,7 @@ export const projects: Project[] = [
   // ── Featured Projects ──
   {
     slug: "hotel-asset-management",
+    coverImage: "/images/projects/hotel-asset-management.png",
     title: "Hotel Asset Management - Schwarzer Bock Hotel Repositioning Plan",
     oneLiner: "10-year asset management plan for a 142-room heritage hotel in Wiesbaden, Germany \u2014 repositioning, CAPEX phasing, and exit valuation for a US private equity fund.",
     featured: true,
@@ -65,6 +67,7 @@ export const projects: Project[] = [
   },
   {
     slug: "real-estate-finance",
+    coverImage: "/images/projects/real-estate-finance.png",
     title: "Real Estate Finance \u2014 Structuring a Hotel Transaction for a PEREF",
     oneLiner: "10-year DCF valuation and leveraged investment analysis of The Corner London City for a Private Equity Real Estate Fund.",
     featured: true,
@@ -101,6 +104,7 @@ export const projects: Project[] = [
   },
   {
     slug: "corporate-finance",
+    coverImage: "/images/projects/corporate-finance.jpg",
     title: "Corporate Finance \u2014 Market Anomalies",
     oneLiner: "Empirical investigation of three market anomalies \u2014 January effect, value effect, and small-cap effect \u2014 on the US equity market (2012\u20132025).",
     featured: true,
@@ -137,6 +141,7 @@ export const projects: Project[] = [
   },
   {
     slug: "project-management",
+    coverImage: "/images/projects/project-management.jpeg",
     title: "Project Management \u2014 AlbaSim Project Manager Simulation",
     oneLiner: "End-to-end management of a simulated 6-month hotel F&B renovation project (Mitten Hotels Group, Zurich) through the AlbaSim platform, from initiation to closing.",
     featured: true,
@@ -175,6 +180,7 @@ export const projects: Project[] = [
   // ── Secondary Projects ──
   {
     slug: "corporate-strategy",
+    coverImage: "/images/projects/corporate-strategy.jpg",
     title: "Corporate Strategy \u2014 Badrutt\u2019s Palace Hotel Summer Season Extension",
     oneLiner: "Strategy Challenge for Badrutt\u2019s Palace Hotel (St. Moritz) \u2014 developing a season-extension concept to improve profitability during the autumn shoulder period (Sep\u2013Nov).",
     featured: false,
@@ -210,6 +216,7 @@ export const projects: Project[] = [
   },
   {
     slug: "revenue-management",
+    coverImage: "/images/projects/revenue-management.webp",
     title: "Revenue Management \u2014 RevSIM Simulation Report",
     oneLiner: "18-month hotel revenue management simulation (RevSIM) \u2014 upscale repositioning strategy, KPI analysis, and performance evaluation against a competitive set.",
     featured: false,
@@ -244,6 +251,7 @@ export const projects: Project[] = [
   },
   {
     slug: "leadership",
+    coverImage: "/images/projects/leadership.png",
     title: "LEAD \u2014 Individual Development & Leadership Style Analysis",
     oneLiner: "Individual project based on 10+ self-assessments and Harvard Business School simulations to critically analyse management and leadership style, identify blind spots, and define a concrete development plan.",
     featured: false,
@@ -281,6 +289,7 @@ export const projects: Project[] = [
   },
   {
     slug: "international-marketing",
+    coverImage: "/images/projects/international-marketing.png",
     title: "International Marketing Strategy \u2014 Festival Antigel Internationalization Plan",
     oneLiner: "Internationalization strategy for a Geneva-based cultural festival, targeting Lyon as first expansion market.",
     featured: false,

@@ -4,7 +4,7 @@ import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { featuredProjects } from "@/data/projects";
-import { ProjectCard } from "@/components/ProjectCard";
+import { FocusCards } from "@/components/ui/focus-cards";
 import { ContactBlock } from "@/components/ContactBlock";
 import { Tag } from "@/components/Tag";
 import { useDockVariant } from "@/contexts/DockVariantContext";
@@ -14,10 +14,8 @@ function FeaturedContent() {
   return (
     <div className="container mx-auto px-6">
       <h2 className="text-2xl font-bold text-text-primary mb-10">Featured Projects</h2>
-      <div className="grid md:grid-cols-2 gap-6 mb-10">
-        {featuredProjects.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
-        ))}
+      <div className="mb-10">
+        <FocusCards projects={featuredProjects} />
       </div>
       <div className="text-center">
         <Link

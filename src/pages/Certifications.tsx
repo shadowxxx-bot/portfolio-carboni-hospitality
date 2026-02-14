@@ -15,11 +15,11 @@ export default function Certifications() {
               key={idx}
               className="border border-gray-100 rounded-lg p-6 hover:shadow-sm transition-shadow"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-6 md:gap-10">
                 <img
                   src={cert.logo}
                   alt={cert.logoAlt}
-                  className="h-10 w-10 md:h-12 md:w-12 object-contain shrink-0 mt-0.5 rounded"
+                  className="h-14 w-14 md:h-20 md:w-20 object-contain shrink-0 rounded"
                 />
                 <div className="flex-1 min-w-0">
                   <h2 className="text-lg font-semibold text-text-primary mb-0.5">{cert.name}</h2>
