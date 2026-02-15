@@ -1,5 +1,6 @@
 import { Mail, Phone, Linkedin, MapPin } from "lucide-react";
 import { siteConfig } from "@/data/site";
+import { NeonButton } from "@/components/ui/neon-button";
 
 export function ContactBlock() {
   return (
@@ -10,26 +11,25 @@ export function ContactBlock() {
           {siteConfig.contact.availability} &middot; {siteConfig.contact.location}
         </p>
         <div className="flex flex-wrap justify-center gap-6">
-          <a
-            href={`mailto:${siteConfig.links.email}`}
-            className="flex items-center gap-2 text-sm text-text-muted-dark hover:text-white transition-colors"
-          >
-            <Mail className="w-4 h-4" /> {siteConfig.links.email}
-          </a>
-          <a
-            href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-2 text-sm text-text-muted-dark hover:text-white transition-colors"
-          >
-            <Phone className="w-4 h-4" /> {siteConfig.links.phone}
-          </a>
-          <a
-            href={siteConfig.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-text-muted-dark hover:text-white transition-colors"
-          >
-            <Linkedin className="w-4 h-4" /> LinkedIn
-          </a>
+          <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+            <a href={`mailto:${siteConfig.links.email}`}>
+              <Mail className="w-4 h-4" /> {siteConfig.links.email}
+            </a>
+          </NeonButton>
+          <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+            <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}>
+              <Phone className="w-4 h-4" /> {siteConfig.links.phone}
+            </a>
+          </NeonButton>
+          <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+            <a
+              href={siteConfig.links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin className="w-4 h-4" /> LinkedIn
+            </a>
+          </NeonButton>
         </div>
       </div>
     </section>

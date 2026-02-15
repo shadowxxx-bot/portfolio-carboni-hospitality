@@ -1,4 +1,5 @@
 import { siteConfig } from "@/data/site";
+import { NeonButton } from "@/components/ui/neon-button";
 
 export function Footer() {
   return (
@@ -10,15 +11,21 @@ export function Footer() {
             <p className="text-xs mt-1">{siteConfig.contact.location} &middot; {siteConfig.contact.availability}</p>
           </div>
           <div className="flex items-center gap-6 text-sm">
-            <a href={`mailto:${siteConfig.links.email}`} className="hover:text-white transition-colors">
-              Email
-            </a>
-            <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              LinkedIn
-            </a>
-            <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors">
-              Phone
-            </a>
+            <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+              <a href={`mailto:${siteConfig.links.email}`}>
+                Email
+              </a>
+            </NeonButton>
+            <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+              <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            </NeonButton>
+            <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
+              <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}>
+                Phone
+              </a>
+            </NeonButton>
           </div>
         </div>
         <div className="mt-6 pt-4 border-t border-white/10 text-xs text-center">

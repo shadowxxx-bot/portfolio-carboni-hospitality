@@ -1,6 +1,7 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
+import { NeonButton } from "@/components/ui/neon-button";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { featuredProjects } from "@/data/projects";
@@ -18,12 +19,14 @@ function FeaturedContent() {
         <FocusCards projects={featuredProjects} />
       </div>
       <div className="text-center">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:gap-3 transition-all"
-        >
-          View all projects <ArrowRight className="w-4 h-4" />
-        </Link>
+        <NeonButton asChild variant="ghost" size="lg">
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 text-lg font-semibold text-accent border-accent/30 hover:border-accent/50"
+          >
+            View all projects <ArrowRight className="w-5 h-5" />
+          </Link>
+        </NeonButton>
       </div>
     </div>
   );
@@ -43,9 +46,13 @@ export default function Home() {
     return () => setVariant("light");
   }, [setVariant]);
 
-  // Switch dock variant as hero slides away
+  // Track when the door transition is complete
+  const [transitionDone, setTransitionDone] = useState(false);
+
+  // Switch dock variant as hero slides away + track transition completion
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setVariant(v > 0.5 ? "light" : "dark");
+    setTransitionDone(v >= 0.99);
   });
 
   // ── Hero door: slides UP (0 → -100%) ──
@@ -74,72 +81,83 @@ export default function Home() {
         style={{ y: heroY }}
         className="fixed top-0 left-0 right-0 z-40 h-screen"
       >
-        <section className="bg-dark text-text-on-dark h-full flex items-center">
-          <div className="container mx-auto px-6 max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              {siteConfig.name}
-            </h1>
+        <section className="bg-dark text-text-on-dark h-full flex items-center relative overflow-hidden">
+          {/* Portrait — absolute, full height, right-aligned (desktop only) */}
+          <img
+            src="/images/home/portrait.png"
+            alt=""
+            aria-hidden="true"
+            className="hidden md:block absolute right-0 top-6 h-[calc(100%-1.5rem)] w-auto object-contain object-right-bottom pointer-events-none select-none"
+          />
 
-            {/* About me */}
-            <div className="mb-8">
-              <h2 className="text-xs uppercase tracking-wider text-text-muted-dark mb-3">
-                About me
-              </h2>
-              <p className="text-sm leading-relaxed text-text-on-dark/80 max-w-2xl">
-                {siteConfig.about}
-              </p>
-            </div>
+          {/* Text content — stays on the left, never overlaps */}
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-2xl">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                {siteConfig.name}
+              </h1>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mb-10">
-              <a
-                href={siteConfig.links.cv}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-full bg-accent text-white hover:bg-accent-hover transition-colors"
-              >
-                <FileText className="w-4 h-4" /> View CV
-              </a>
-              <a
-                href={siteConfig.links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-full border border-white/20 text-text-on-dark hover:bg-white/10 transition-colors"
-              >
-                <Linkedin className="w-4 h-4" /> LinkedIn
-              </a>
-              <a
-                href={`mailto:${siteConfig.links.email}`}
-                className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-full border border-white/20 text-text-on-dark hover:bg-white/10 transition-colors"
-              >
-                <Mail className="w-4 h-4" /> Email
-              </a>
-              <a
-                href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}
-                className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-full border border-white/20 text-text-on-dark hover:bg-white/10 transition-colors"
-              >
-                <Phone className="w-4 h-4" /> Phone
-              </a>
-            </div>
-
-            {/* Skills snapshot */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Languages</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {siteConfig.hero.languages.map((l) => <Tag key={l} label={l} variant="dark" />)}
-                </div>
+              {/* About me */}
+              <div className="mb-8">
+                <h2 className="text-xs uppercase tracking-wider text-text-muted-dark mb-3">
+                  About me
+                </h2>
+                <p className="text-sm leading-relaxed text-text-on-dark/80">
+                  {siteConfig.about}
+                </p>
               </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Tools</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {siteConfig.hero.tools.map((t) => <Tag key={t} label={t} variant="dark" />)}
-                </div>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3 mb-10">
+                <NeonButton asChild variant="solid">
+                  <a
+                    href={siteConfig.links.cv}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText className="w-4 h-4" /> View CV
+                  </a>
+                </NeonButton>
+                <NeonButton asChild variant="dark">
+                  <a
+                    href={siteConfig.links.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-4 h-4" /> LinkedIn
+                  </a>
+                </NeonButton>
+                <NeonButton asChild variant="dark">
+                  <a href={`mailto:${siteConfig.links.email}`}>
+                    <Mail className="w-4 h-4" /> Email
+                  </a>
+                </NeonButton>
+                <NeonButton asChild variant="dark">
+                  <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}>
+                    <Phone className="w-4 h-4" /> Phone
+                  </a>
+                </NeonButton>
               </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Focus areas</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {siteConfig.hero.focusAreas.map((f) => <Tag key={f} label={f} variant="dark" />)}
+
+              {/* Skills snapshot */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Languages</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {siteConfig.hero.languages.map((l) => <Tag key={l} label={l} variant="dark" />)}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Tools</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {siteConfig.hero.tools.map((t) => <Tag key={t} label={t} variant="dark" />)}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xs uppercase tracking-wider text-text-muted-dark mb-2">Focus areas</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {siteConfig.hero.focusAreas.map((f) => <Tag key={f} label={f} variant="dark" />)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -165,8 +183,9 @@ export default function Home() {
       {/* Spacer: absorbs scroll during the door transition */}
       <div ref={spacerRef} className="h-screen" />
 
-      {/* Real Featured: in normal flow, takes over after transition */}
-      <section className="bg-white pt-20 pb-20">
+      {/* Real Featured: in normal flow, takes over after transition.
+           z-[35] only after transition so it doesn't cover the fixed clip-path reveal (z-30) mid-animation. */}
+      <section className={`bg-white pt-20 pb-20 ${transitionDone ? "relative z-[35]" : ""}`}>
         <FeaturedContent />
       </section>
 

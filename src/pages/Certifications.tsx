@@ -1,4 +1,5 @@
 import { certifications } from "@/data/certifications";
+import { NeonButton } from "@/components/ui/neon-button";
 
 export default function Certifications() {
   return (
@@ -27,14 +28,15 @@ export default function Certifications() {
                     {cert.organization} &middot; {cert.date}
                   </p>
                   <p className="text-sm text-text-primary mb-4">{cert.proof}</p>
-                  <a
-                    href={cert.certificateLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
-                  >
-                    View certificate (PDF)
-                  </a>
+                  <NeonButton asChild variant="default">
+                    <a
+                      href={cert.certificateLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View certificate (PDF)
+                    </a>
+                  </NeonButton>
                 </div>
               </div>
             </article>

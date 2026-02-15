@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useDockVariant } from "@/contexts/DockVariantContext";
-import { GlowCard } from "@/components/ui/spotlight-card";
+import { NeonButton } from "@/components/ui/neon-button";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -44,40 +44,32 @@ export function Navbar() {
           {navLinks.map((link) => {
             const isActive = location.pathname === link.to;
             return (
-              <GlowCard
+              <NeonButton
                 key={link.to}
-                customSize
-                glowColor="blue"
-                borderWidth={1}
-                spotlightSize={120}
-                borderRadius={8}
-                backdrop="transparent"
-                outerGlow={false}
-                className="rounded-lg"
+                asChild
+                variant="ghost"
+                size="sm"
+                className={`rounded-lg ${
+                  isActive
+                    ? isDark
+                      ? "text-white font-medium"
+                      : "text-gray-900 font-medium"
+                    : isDark
+                      ? "text-white/60 hover:text-white"
+                      : "text-gray-500 hover:text-gray-900"
+                }`}
               >
-                <Link
-                  to={link.to}
-                  className={`relative z-10 block px-3 py-1.5 text-sm transition-colors duration-300 ${
-                    isActive
-                      ? isDark
-                        ? "text-white font-medium"
-                        : "text-gray-900 font-medium"
-                      : isDark
-                        ? "text-white/60 hover:text-white"
-                        : "text-gray-500 hover:text-gray-900"
-                  }`}
-                >
+                <Link to={link.to}>
                   {link.label}
                 </Link>
-              </GlowCard>
+              </NeonButton>
             );
           })}
-          <a
-            href={isHome ? "#contact" : "mailto:alexandre.carboni@ehl.ch"}
-            className="ml-2 px-4 py-1.5 text-sm font-medium rounded-full bg-accent text-white hover:bg-accent-hover transition-colors"
-          >
-            Contact
-          </a>
+          <NeonButton asChild variant="solid" size="sm" className="ml-2">
+            <a href={isHome ? "#contact" : "mailto:alexandre.carboni@ehl.ch"}>
+              Contact
+            </a>
+          </NeonButton>
         </div>
 
         {/* Mobile toggle */}

@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, FileText, ExternalLink, Download, Play } from "lucide-react";
+import { NeonButton } from "@/components/ui/neon-button";
 import { projects } from "@/data/projects";
 import { Tag } from "@/components/Tag";
 
@@ -19,15 +20,14 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="bg-white min-h-screen py-12">
-      <div className="container mx-auto px-6 max-w-3xl">
+    <div className="bg-white min-h-screen py-16">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         {/* Back */}
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-accent transition-colors mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" /> All projects
-        </Link>
+        <NeonButton asChild variant="ghost" size="sm" className="mb-8">
+          <Link to="/projects" className="text-text-secondary hover:text-accent">
+            <ArrowLeft className="w-4 h-4" /> All projects
+          </Link>
+        </NeonButton>
 
         {/* Title */}
         <h1 className="text-3xl font-bold text-text-primary mb-2">{project.title}</h1>
@@ -89,25 +89,26 @@ export default function ProjectDetail() {
                   ? <Download className="w-4 h-4" />
                   : <FileText className="w-4 h-4" />;
               return (
-                <a
-                  key={d.label}
-                  href={d.href}
-                  {...(isDownload ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
-                >
-                  {icon} {d.label}
-                </a>
+                <NeonButton asChild variant="default" key={d.label}>
+                  <a
+                    href={d.href}
+                    {...(isDownload ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
+                  >
+                    {icon} {d.label}
+                  </a>
+                </NeonButton>
               );
             })}
             {project.evidencePackLink && (
-              <a
-                href={project.evidencePackLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 text-text-primary hover:border-accent hover:text-accent transition-colors"
-              >
-                <ExternalLink className="w-4 h-4" /> View evidence pack (PDF)
-              </a>
+              <NeonButton asChild variant="default">
+                <a
+                  href={project.evidencePackLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-4 h-4" /> View evidence pack (PDF)
+                </a>
+              </NeonButton>
             )}
           </div>
         </section>

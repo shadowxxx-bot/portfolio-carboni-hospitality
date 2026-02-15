@@ -1,6 +1,7 @@
 import { experience } from "@/data/experience";
 import { Tag } from "@/components/Tag";
 import { FileText } from "lucide-react";
+import { NeonButton } from "@/components/ui/neon-button";
 
 export default function Experience() {
   return (
@@ -34,14 +35,15 @@ export default function Experience() {
                 {entry.tags.map((t) => <Tag key={t} label={t} />)}
               </div>
               {entry.reportLink && (
-                <a
-                  href={entry.reportLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-3 text-sm text-accent hover:underline"
-                >
-                  <FileText className="w-4 h-4" /> View report (PDF)
-                </a>
+                <NeonButton asChild variant="default" size="sm" className="mt-3">
+                  <a
+                    href={entry.reportLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText className="w-4 h-4" /> View report (PDF)
+                  </a>
+                </NeonButton>
               )}
             </article>
           ))}

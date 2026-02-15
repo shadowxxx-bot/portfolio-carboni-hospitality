@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FeyButton } from "@/components/ui/fey-button";
 import type { Project } from "@/data/projects";
 
 /* ── Single card (used internally) ── */
@@ -47,15 +45,9 @@ const FocusCard = React.memo(
 
       {/* Content — always visible */}
       <div className="relative h-full flex flex-col justify-end p-6">
-        <h3
-          className="text-lg font-semibold text-white mb-4"
-          style={{ textShadow: "0 1px 4px rgba(0,0,0,.6)" }}
-        >
+        <h3 className="inline-flex self-start px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-lg font-semibold text-white transition-all duration-200 group-hover:bg-white/20 group-hover:border-white/30">
           {project.title}
         </h3>
-        <FeyButton>
-          View case <ArrowRight className="w-3.5 h-3.5" />
-        </FeyButton>
       </div>
     </Link>
   )
