@@ -4,11 +4,12 @@ import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { NeonButton } from "@/components/ui/neon-button";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { siteConfig } from "@/data/site";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { featuredProjects } from "@/data/projects";
 import { FocusCards } from "@/components/ui/focus-cards";
-import { ContactBlock } from "@/components/ContactBlock";
 import { Tag } from "@/components/Tag";
 import { useDockVariant } from "@/contexts/DockVariantContext";
+
 
 /** Shared content — rendered in both fixed visual layer and flow layer */
 function FeaturedContent() {
@@ -99,9 +100,7 @@ export default function Home() {
 
               {/* About me */}
               <div className="mb-8">
-                <h2 className="text-xs uppercase tracking-wider text-text-muted-dark mb-3">
-                  About me
-                </h2>
+                <SectionHeading variant="dark">About me</SectionHeading>
                 <p className="text-sm leading-relaxed text-text-on-dark/80">
                   {siteConfig.about}
                 </p>
@@ -115,7 +114,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FileText className="w-4 h-4" /> View CV
+                    <FileText className="w-4 h-4" /> Resume
                   </a>
                 </NeonButton>
                 <NeonButton asChild variant="dark">
@@ -184,13 +183,11 @@ export default function Home() {
       <div ref={spacerRef} className="h-screen" />
 
       {/* Real Featured: in normal flow, takes over after transition.
-           z-[35] only after transition so it doesn't cover the fixed clip-path reveal (z-30) mid-animation. */}
-      <section className={`bg-white pt-20 pb-20 ${transitionDone ? "relative z-[35]" : ""}`}>
+           invisible during animation so it never overlaps the fixed clip-path layer.
+           z-[35] only after transition so it sits above the fixed layer for hover. */}
+      <section className={`bg-white pt-20 pb-20 ${transitionDone ? "relative z-[35]" : "invisible"}`}>
         <FeaturedContent />
       </section>
-
-      {/* ── CONTACT ── */}
-      <ContactBlock />
     </>
   );
 }

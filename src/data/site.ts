@@ -5,7 +5,7 @@ export const siteConfig = {
   name: "Alexandre Carboni",
   role: "EHL Student | Finance & Consulting",
   positioning: "Bridging hospitality expertise with financial acumen to deliver actionable business insights.",
-  lookingFor: "Looking for a 6-month internship in consulting or finance — starting September 2025, based in Switzerland or remote.",
+  lookingFor: "Looking for a 6-month internship in consulting or finance, starting September 2025, based in Switzerland or remote.",
 
   links: {
     cv: "/cv-alexandre-carboni.pdf",       // Place PDF in /public
@@ -16,11 +16,21 @@ export const siteConfig = {
 
   hero: {
     languages: ["French (native)", "English (C1)", "Russian (B1)", "German (basic)"],
-    tools: ["Excel / VBA", "Power BI", "Python", "SQL", "Bloomberg"],
-    focusAreas: ["Valuation", "Forecasting", "Strategy"],
+    tools: ["Excel", "Refinitiv", "Power BI", "Canva"],
+    focusAreas: ["Hospitality Strategy", "Asset Management", "Finance & Analytics"],
   },
 
-  about: `I'm a third-year EHL student focused on finance, strategy, and consulting. My academic work centres on hotel asset management, real estate investment, and corporate finance — always with a bias toward rigour and practical application. Outside the classroom, I've held operational and analytical roles that sharpened my ability to work under pressure, manage stakeholders, and deliver clear recommendations.`,
+  about: `I'm a third-year EHL student specialising in hotel asset management, hospitality strategy, and corporate finance. My projects combine financial modeling (DCF, valuation) and data-driven analysis applied to real hospitality assets, delivering structured, presentation-ready outputs. Operational and analytical roles have strengthened my ability to communicate with stakeholders, solve problems rigorously, and perform under pressure.`,
+
+  philosophy: {
+    left: `I approach every project with discipline: define the objective, structure the plan, execute consistently. My EHL training bridges hospitality knowledge with financial rigor, from building DCF models in Excel to extracting market data on Refinitiv. Every deliverable I produce is grounded in evidence and built for decision-makers.`,
+    right: `Three principles guide how I work:`,
+    bullets: [
+      "Structured analysis: decompose complexity into clear frameworks before drawing conclusions",
+      "Evidence-based recommendations: ground every insight in financial modeling, market research, or empirical data",
+      "Precision in communication: deliver stakeholder-ready outputs, concise and actionable",
+    ],
+  },
 
   contact: {
     location: "Lausanne, Switzerland",

@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { useDockVariant } from "@/contexts/DockVariantContext";
 import { NeonButton } from "@/components/ui/neon-button";
@@ -15,10 +15,20 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === "/";
+  const navigate = useNavigate();
 
   const { variant } = useDockVariant();
   const isDark = variant === "dark";
+
+  const scrollToContact = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("contact");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/#contact");
+    }
+  }, [navigate]);
 
   return (
     <nav
@@ -66,7 +76,7 @@ export function Navbar() {
             );
           })}
           <NeonButton asChild variant="solid" size="sm" className="ml-2">
-            <a href={isHome ? "#contact" : "mailto:alexandre.carboni@ehl.ch"}>
+            <a href="#contact" onClick={scrollToContact}>
               Contact
             </a>
           </NeonButton>
@@ -112,8 +122,8 @@ export function Navbar() {
             </Link>
           ))}
           <a
-            href={isHome ? "#contact" : "mailto:alexandre.carboni@ehl.ch"}
-            onClick={() => setMobileOpen(false)}
+            href="#contact"
+            onClick={(e) => { scrollToContact(e); setMobileOpen(false); }}
             className="block text-sm py-1.5 text-accent font-medium"
           >
             Contact

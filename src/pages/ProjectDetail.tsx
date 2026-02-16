@@ -2,7 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, FileText, ExternalLink, Download, Play } from "lucide-react";
 import { NeonButton } from "@/components/ui/neon-button";
 import { projects } from "@/data/projects";
-import { Tag } from "@/components/Tag";
+import { ProjectSeo } from "@/components/ProjectSeo";
+import { ProjectValueSummary } from "@/components/ProjectValueSummary";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -20,7 +22,9 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="bg-white min-h-screen py-16">
+    <article className="bg-white min-h-screen py-16">
+      <ProjectSeo project={project} />
+
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         {/* Back */}
         <NeonButton asChild variant="ghost" size="sm" className="mb-8">
@@ -30,56 +34,11 @@ export default function ProjectDetail() {
         </NeonButton>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-text-primary mb-2">{project.title}</h1>
-        <p className="text-base text-text-secondary mb-8">{project.oneLiner}</p>
+        <h1 className="text-3xl font-bold text-text-primary mb-4">{project.title}</h1>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-10">
-          {project.tags.map((t) => <Tag key={t} label={t} />)}
-        </div>
-
-        {/* Context */}
-        <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Context</h2>
-          <p className="text-sm leading-relaxed text-text-primary">{project.context}</p>
-        </section>
-
-        {/* Objective */}
-        <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Objective</h2>
-          <p className="text-sm leading-relaxed text-text-primary">{project.objective}</p>
-        </section>
-
-        {/* Contribution */}
-        <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">My contribution</h2>
-          <ul className="space-y-2">
-            {project.contribution.map((c, i) => (
-              <li key={i} className="text-sm text-text-primary flex gap-2">
-                <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" />
-                {c}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Method */}
-        <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Method / Approach</h2>
-          <ul className="space-y-2">
-            {project.method.map((m, i) => (
-              <li key={i} className="text-sm text-text-primary flex gap-2">
-                <span className="mt-1.5 w-1 h-1 rounded-full bg-text-secondary shrink-0" />
-                {m}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Deliverables */}
-        <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Deliverables</h2>
-          <div className="flex flex-wrap gap-3">
+        {/* Deliverables — right below title */}
+        {project.deliverables.length > 0 && (
+          <nav aria-label="Project deliverables" className="flex flex-wrap gap-3 mb-8">
             {project.deliverables.map((d) => {
               const isVideo = /\.(mp4|webm|mov)$/i.test(d.href);
               const isDownload = /\.(xlsx?|csv|zip)$/i.test(d.href);
@@ -88,10 +47,12 @@ export default function ProjectDetail() {
                 : isDownload
                   ? <Download className="w-4 h-4" />
                   : <FileText className="w-4 h-4" />;
+              const ext = d.href.split(".").pop()?.toUpperCase() ?? "";
               return (
                 <NeonButton asChild variant="default" key={d.label}>
                   <a
                     href={d.href}
+                    aria-label={`${d.label}${ext ? ` (${ext})` : ""}`}
                     {...(isDownload ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
                   >
                     {icon} {d.label}
@@ -105,21 +66,47 @@ export default function ProjectDetail() {
                   href={project.evidencePackLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="View evidence pack (PDF)"
                 >
                   <ExternalLink className="w-4 h-4" /> View evidence pack (PDF)
                 </a>
               </NeonButton>
             )}
-          </div>
+          </nav>
+        )}
+
+        {/* Context */}
+        <section className="mb-8">
+          <SectionHeading>Context</SectionHeading>
+          <p className="text-sm leading-relaxed text-text-primary">{project.context}</p>
+        </section>
+
+        {/* Objective */}
+        <section className="mb-8">
+          <SectionHeading>Objective</SectionHeading>
+          <p className="text-sm leading-relaxed text-text-primary">{project.objective}</p>
+        </section>
+
+        {/* Contribution */}
+        <section className="mb-8">
+          <SectionHeading>My contribution</SectionHeading>
+          <ul className="space-y-2">
+            {project.contribution.map((c, i) => (
+              <li key={i} className="text-sm text-text-primary flex gap-2">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
+                {c}
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Results */}
         <section className="mb-8">
-          <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-2">Results / Insights</h2>
+          <SectionHeading>Results</SectionHeading>
           <ul className="space-y-2">
             {project.results.map((r, i) => (
               <li key={i} className="text-sm text-text-primary flex gap-2">
-                <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" />
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
                 {r}
               </li>
             ))}
@@ -129,7 +116,7 @@ export default function ProjectDetail() {
         {/* Images */}
         {project.images && project.images.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-4">Evidence</h2>
+            <SectionHeading>Evidence</SectionHeading>
             <div className="grid gap-4">
               {project.images.map((img, i) => (
                 <img
@@ -143,7 +130,10 @@ export default function ProjectDetail() {
             </div>
           </section>
         )}
+
+        {/* Why this project matters — recruiter value summary */}
+        <ProjectValueSummary project={project} />
       </div>
-    </div>
+    </article>
   );
 }

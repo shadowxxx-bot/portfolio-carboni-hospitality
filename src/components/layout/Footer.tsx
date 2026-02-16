@@ -8,7 +8,6 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <p className="text-text-on-dark font-medium text-sm">{siteConfig.name}</p>
-            <p className="text-xs mt-1">{siteConfig.contact.location} &middot; {siteConfig.contact.availability}</p>
           </div>
           <div className="flex items-center gap-6 text-sm">
             <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
