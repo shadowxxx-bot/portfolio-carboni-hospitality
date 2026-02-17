@@ -1,5 +1,6 @@
 import { featuredProjects, secondaryProjects } from "@/data/projects";
 import { FocusCards } from "@/components/ui/focus-cards";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function Projects() {
   return (
@@ -11,13 +12,13 @@ export default function Projects() {
         </p>
 
         {/* Featured */}
-        <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-4">Featured</h2>
+        <SectionHeading>Featured Projects</SectionHeading>
         <div className="mb-16">
           <FocusCards projects={featuredProjects} />
         </div>
 
         {/* Secondary */}
-        <h2 className="text-xs uppercase tracking-wider text-text-secondary mb-4">Secondary projects</h2>
+        <SectionHeading>Secondary Projects</SectionHeading>
         <FocusCards projects={secondaryProjects} />
       </div>
     </div>

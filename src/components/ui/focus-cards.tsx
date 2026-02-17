@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/data/projects";
+import { ProjectTags } from "@/components/ProjectTags";
 
 /* ── Single card (used internally) ── */
 
@@ -45,8 +46,9 @@ const FocusCard = React.memo(
 
       {/* Content — always visible */}
       <div className="relative h-full flex flex-col justify-end p-6">
-        <h3 className="inline-flex self-start px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-lg font-semibold text-white transition-all duration-200 group-hover:bg-white/20 group-hover:border-white/30">
+        <h3 className="inline-flex items-baseline gap-2 flex-wrap self-start px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-lg font-semibold text-white transition-all duration-200 group-hover:bg-white/20 group-hover:border-white/30">
           {project.title}
+          <ProjectTags lang={project.lang} caseType={project.caseType} variant="dark" />
         </h3>
       </div>
     </Link>

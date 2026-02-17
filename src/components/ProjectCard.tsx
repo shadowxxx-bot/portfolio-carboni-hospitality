@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/projects";
+import { ProjectTags } from "@/components/ProjectTags";
 
 interface ProjectCardProps {
   project: Project;
@@ -14,8 +15,9 @@ export function ProjectCard({ project, compact }: ProjectCardProps) {
         to={`/projects/${project.slug}`}
         className="group flex items-center justify-between py-3 border-b border-gray-100 hover:bg-light-grey -mx-2 px-2 rounded transition-colors"
       >
-        <span className="text-sm font-medium text-text-primary group-hover:text-accent transition-colors">
+        <span className="text-sm font-medium text-text-primary group-hover:text-accent transition-colors flex items-baseline gap-1.5 flex-wrap">
           {project.title}
+          <ProjectTags lang={project.lang} caseType={project.caseType} />
         </span>
         <ArrowRight className="w-4 h-4 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity" />
       </Link>
@@ -39,8 +41,9 @@ export function ProjectCard({ project, compact }: ProjectCardProps) {
 
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end p-6">
-        <h3 className="inline-flex self-start px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-lg font-semibold text-white transition-all duration-200 group-hover:bg-white/20 group-hover:border-white/30">
+        <h3 className="inline-flex items-baseline gap-2 flex-wrap self-start px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-lg font-semibold text-white transition-all duration-200 group-hover:bg-white/20 group-hover:border-white/30">
           {project.title}
+          <ProjectTags lang={project.lang} caseType={project.caseType} variant="dark" />
         </h3>
       </div>
     </Link>

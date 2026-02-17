@@ -1,43 +1,16 @@
 import { useRef, useState, useEffect } from "react";
-import {
-  useMotionValue,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { useMotionValue, type MotionValue } from "framer-motion";
 import { personal } from "@/data/personal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Tag } from "@/components/Tag";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
 import type { Activity } from "@/data/personal";
 
-/* ── Alternation: image right → left → right ── */
+/* ── Constants ── */
 const zigzag: ("left" | "right")[] = ["right", "left", "right"];
+const SECTION_COUNT = 3;
 
-/* ── Per-section hook: blends scroll-based + wheel-based progress ──
-   Before capture: scroll drives 0 → ~0.2 as image enters viewport.
-   During capture: wheel delta adds manual offset on top → reaches 1. */
-function useSectionReveal(
-  imageRef: React.RefObject<HTMLDivElement | null>,
-  manualExtra: MotionValue<number>,
-  allDone: React.MutableRefObject<boolean[]>,
-  index: number,
-) {
-  const { scrollYProgress } = useScroll({
-    target: imageRef,
-    offset: ["start end", "end start"],
-  });
-
-  return useTransform(
-    [scrollYProgress, manualExtra] as MotionValue<number>[],
-    ([s, m]: number[]) => {
-      if (allDone.current[index]) return 1;
-      return Math.min(1, s * 0.4 + m);
-    },
-  );
-}
-
-/* ── Activity row (layout unchanged) ── */
+/* ── Activity row (layout untouched) ── */
 function ActivityRow({
   activity,
   imagePosition,
@@ -95,16 +68,16 @@ function ActivityRow({
             : "lg:order-2 bleed-text-right"
         }`}
       >
-        <h3 className="text-2xl font-bold text-text-primary mb-3">
+        <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-text-primary mb-4">
           {activity.title}
         </h3>
         <TextGradientScroll
           text={activity.description}
-          className="text-sm md:text-base leading-relaxed text-text-secondary mb-6"
+          className="text-lg md:text-2xl leading-relaxed text-text-secondary mb-8"
           type="letter"
           progress={progress}
         />
-        <p className="text-xs uppercase tracking-wide font-semibold text-text-secondary mb-2">
+        <p className="text-sm uppercase tracking-wide font-semibold text-text-secondary mb-3">
           Key skills
         </p>
         <div className="flex flex-wrap gap-1.5">
@@ -119,28 +92,22 @@ function ActivityRow({
 
 /* ── Personal page ── */
 export default function Personal() {
-  /* ── Refs for the 3 image containers ── */
+  /* ── Image container refs ── */
   const imgRef0 = useRef<HTMLDivElement>(null);
   const imgRef1 = useRef<HTMLDivElement>(null);
   const imgRef2 = useRef<HTMLDivElement>(null);
   const imgRefs = [imgRef0, imgRef1, imgRef2];
 
-  /* ── Manual wheel-driven offsets (one per section) ── */
-  const m0 = useMotionValue(0);
-  const m1 = useMotionValue(0);
-  const m2 = useMotionValue(0);
-  const manuals = [m0, m1, m2];
+  /* ── Single source of truth: one progress (0‥1) per section ── */
+  const p0 = useMotionValue(0);
+  const p1 = useMotionValue(0);
+  const p2 = useMotionValue(0);
+  const progresses = [p0, p1, p2];
 
-  /* ── Done flags ── */
-  const done = useRef([false, false, false]);
+  /* ── Which section (if any) currently owns the wheel ── */
+  const activeSection = useRef<number | null>(null);
 
-  /* ── Combined progress per section (scroll + manual) ── */
-  const tp0 = useSectionReveal(imgRef0, m0, done, 0);
-  const tp1 = useSectionReveal(imgRef1, m1, done, 1);
-  const tp2 = useSectionReveal(imgRef2, m2, done, 2);
-  const tps = [tp0, tp1, tp2];
-
-  /* ── Only capture on desktop with mouse/trackpad ── */
+  /* ── Desktop + pointer detection ── */
   const [captureActive, setCaptureActive] = useState(false);
 
   useEffect(() => {
@@ -156,38 +123,76 @@ export default function Personal() {
     };
   }, []);
 
-  /* ── Wheel capture: block scroll when image centered, drive text reveal ── */
+  /* ── Bidirectional wheel capture ──
+     Single listener, { passive: false } so we can preventDefault.
+     Progress stored in MotionValues — purely imperative, no conflict. */
   useEffect(() => {
     if (!captureActive) return;
 
-    const THRESHOLD = 150; // px from viewport center
-    const FACTOR = 0.0005; // progress per px of wheel delta
+    const THRESHOLD = 150; // px from viewport centre
+    const SPEED = 0.001; // progress per px of normalised delta
+    const MAX_DELTA = 80; // clamp fast trackpad swipes
+
+    /** Is image `i` centred in the viewport? */
+    const isCentered = (i: number): boolean => {
+      const el = imgRefs[i].current;
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      const imgCenter = rect.top + rect.height / 2;
+      return Math.abs(imgCenter - window.innerHeight / 2) < THRESHOLD;
+    };
 
     const onWheel = (e: WheelEvent) => {
-      /* Normalise delta to pixels */
+      /* Normalise to pixels */
       let delta = e.deltaY;
-      if (e.deltaMode === 1) delta *= 40;
-      if (e.deltaMode === 2) delta *= window.innerHeight;
+      if (e.deltaMode === 1) delta *= 40; // lines → px
+      if (e.deltaMode === 2) delta *= window.innerHeight; // pages → px
+      delta = Math.max(-MAX_DELTA, Math.min(MAX_DELTA, delta));
+      if (delta === 0) return;
 
-      /* Only capture downward scroll */
-      if (delta <= 0) return;
+      const down = delta > 0;
 
-      for (let i = 0; i < 3; i++) {
-        if (done.current[i]) continue;
-        const el = imgRefs[i].current;
-        if (!el) continue;
+      /* ① If a section already owns the wheel, try to continue */
+      if (activeSection.current !== null) {
+        const i = activeSection.current;
 
-        const rect = el.getBoundingClientRect();
-        const imageCenter = rect.top + rect.height / 2;
-        const vpCenter = window.innerHeight / 2;
+        if (isCentered(i)) {
+          const cur = progresses[i].get();
 
-        if (Math.abs(imageCenter - vpCenter) < THRESHOLD) {
+          /* At boundary for this direction → release, let page scroll */
+          if ((down && cur >= 1) || (!down && cur <= 0)) {
+            activeSection.current = null;
+            return;
+          }
+
+          /* Still room to move → capture */
           e.preventDefault();
-          manuals[i].set(manuals[i].get() + delta * FACTOR);
-          if (tps[i].get() >= 0.999) done.current[i] = true;
+          progresses[i].set(Math.max(0, Math.min(1, cur + delta * SPEED)));
           return;
         }
+
+        /* Image drifted out of centre → release immediately */
+        activeSection.current = null;
       }
+
+      /* ② No active section — scan for one to capture */
+      for (let i = 0; i < SECTION_COUNT; i++) {
+        if (!isCentered(i)) continue;
+
+        const cur = progresses[i].get();
+
+        /* Already at boundary for this direction → skip */
+        if (down && cur >= 1) continue;
+        if (!down && cur <= 0) continue;
+
+        /* Capture this section */
+        activeSection.current = i;
+        e.preventDefault();
+        progresses[i].set(Math.max(0, Math.min(1, cur + delta * SPEED)));
+        return;
+      }
+
+      /* ③ Nothing to capture → normal scroll */
     };
 
     window.addEventListener("wheel", onWheel, { passive: false });
@@ -209,14 +214,14 @@ export default function Personal() {
         </section>
       </div>
 
-      {/* Activity rows — original spacing, no tall wrappers */}
+      {/* Activity rows — original spacing, no wrappers */}
       <div className="space-y-16">
         {personal.activities.map((activity, i) => (
           <ActivityRow
             key={activity.title}
             activity={activity}
             imagePosition={zigzag[i]}
-            progress={captureActive ? tps[i] : undefined}
+            progress={captureActive ? progresses[i] : undefined}
             imageRef={imgRefs[i]}
           />
         ))}

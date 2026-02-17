@@ -4,6 +4,7 @@ import { NeonButton } from "@/components/ui/neon-button";
 import { projects } from "@/data/projects";
 import { ProjectSeo } from "@/components/ProjectSeo";
 import { ProjectValueSummary } from "@/components/ProjectValueSummary";
+import { ProjectTags } from "@/components/ProjectTags";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function ProjectDetail() {
@@ -34,7 +35,10 @@ export default function ProjectDetail() {
         </NeonButton>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-text-primary mb-4">{project.title}</h1>
+        <h1 className="text-3xl font-bold text-text-primary">{project.title}</h1>
+        <div className="mt-2 mb-4 flex gap-2">
+          <ProjectTags lang={project.lang} caseType={project.caseType} />
+        </div>
 
         {/* Deliverables — right below title */}
         {project.deliverables.length > 0 && (

@@ -6,6 +6,8 @@
 export interface Project {
   slug: string;
   title: string;
+  lang: "EN" | "FR";
+  caseType: "Fictional case" | "Real case";
   oneLiner: string;
   featured: boolean;
   // Card fields
@@ -42,6 +44,8 @@ export const projects: Project[] = [
     slug: "hotel-asset-management",
     coverImage: "/images/projects/hotel-asset-management.png",
     title: "Hotel Asset Management - Schwarzer Bock Hotel Repositioning Plan",
+    lang: "EN",
+    caseType: "Fictional case",
     oneLiner: "10-year asset management plan for a 142-room heritage hotel in Wiesbaden, Germany, covering repositioning, CAPEX phasing, and exit valuation for a US private equity fund.",
     featured: true,
     cardContext: "EHL, Hotel Asset Management, Fall 2025",
@@ -94,6 +98,8 @@ export const projects: Project[] = [
     slug: "real-estate-finance",
     coverImage: "/images/projects/real-estate-finance.png",
     title: "Real Estate Finance: Structuring a Hotel Transaction for a PEREF",
+    lang: "EN",
+    caseType: "Fictional case",
     oneLiner: "10-year DCF valuation and leveraged investment analysis of The Corner London City for a Private Equity Real Estate Fund.",
     featured: true,
     cardContext: "EHL, Real Estate Finance, Fall 2025",
@@ -145,6 +151,8 @@ export const projects: Project[] = [
     slug: "corporate-finance",
     coverImage: "/images/projects/corporate-finance.jpg",
     title: "Corporate Finance: Market Anomalies",
+    lang: "FR",
+    caseType: "Real case",
     oneLiner: "Empirical investigation of three market anomalies (January effect, value effect, and small-cap effect) on the US equity market (2012\u20132025).",
     featured: true,
     cardContext: "EHL, Corporate Finance, Fall 2025",
@@ -196,6 +204,8 @@ export const projects: Project[] = [
     slug: "project-management",
     coverImage: "/images/projects/project-management.jpeg",
     title: "Project Management: AlbaSim Project Manager Simulation",
+    lang: "EN",
+    caseType: "Real case",
     oneLiner: "End-to-end management of a simulated 6-month hotel F&B renovation project (Mitten Hotels Group, Zurich) through the AlbaSim platform, from initiation to closing.",
     featured: true,
     cardContext: "EHL, Project Management, Fall 2025",
@@ -249,6 +259,8 @@ export const projects: Project[] = [
     slug: "corporate-strategy",
     coverImage: "/images/projects/corporate-strategy.jpg",
     title: "Corporate Strategy: Badrutt\u2019s Palace Hotel Summer Season Extension",
+    lang: "EN",
+    caseType: "Real case",
     oneLiner: "Strategy Challenge for Badrutt\u2019s Palace Hotel (St. Moritz), developing a season-extension concept to improve profitability during the autumn shoulder period (Sep\u2013Nov).",
     featured: false,
     cardContext: "EHL, Corporate Strategy, Spring 2025",
@@ -258,7 +270,7 @@ export const projects: Project[] = [
     ],
     cardDeliverable: "Strategic infographic (A4) with recommendation, KPIs, and implementation roadmap",
     tags: ["Desk Research", "Strategic Analysis", "Problem Framing", "Option Evaluation", "Client Communication", "Presentation", "Infographic", "Luxury Hospitality"],
-    context: "Multi-week Strategy Challenge for the Corporate Strategy course at EHL (Spring 2025). Worked in a team as consultants for Badrutt\u2019s Palace Hotel, a 168-room iconic luxury property in St. Moritz (Michelin-starred, World\u2019s 50 Best Hotels). The hotel operates seasonally (winter Dec\u2013Apr, summer Jun\u2013Sep) and faces ~CHF 2M/month in fixed costs during closure periods, with a combined off-season net loss exceeding CHF 8M.",
+    context: "Multi-week Strategy Challenge for the Corporate Strategy course at EHL (Spring 2025). Worked in a team as consultants for Badrutt\u2019s Palace Hotel, a 168-room iconic luxury property in St. Moritz (Michelin-starred, World\u2019s 50 Best Hotels). The hotel operates seasonally (winter Dec\u2013Apr, summer Jun\u2013Sep) and faces significant fixed costs during closure periods, resulting in substantial off-season net losses.",
     objective: "Develop a sound, convincing, and realistic strategic recommendation to extend the summer season (Sep\u2013Nov) and improve profitability, while preserving the Palace\u2019s brand positioning and service standards.",
     contribution: [
       "Helped shape the core idea submitted by the team: an \u201CAthletic Travel Experience\u201D positioning the Alpine autumn as a peak athletic destination",
@@ -299,6 +311,8 @@ export const projects: Project[] = [
     slug: "revenue-management",
     coverImage: "/images/projects/revenue-management.webp",
     title: "Revenue Management: RevSIM Simulation Report",
+    lang: "FR",
+    caseType: "Fictional case",
     oneLiner: "18-month hotel revenue management simulation (RevSIM): upscale repositioning strategy, KPI analysis, and performance evaluation against a competitive set.",
     featured: false,
     cardContext: "EHL, Revenue Management course, Fall 2024",
@@ -348,6 +362,8 @@ export const projects: Project[] = [
     slug: "leadership",
     coverImage: "/images/projects/leadership.png",
     title: "LEAD: Individual Development & Leadership Style Analysis",
+    lang: "FR",
+    caseType: "Real case",
     oneLiner: "Individual project based on 10+ self-assessments and Harvard Business School simulations to critically analyse management and leadership style, identify blind spots, and define a concrete development plan.",
     featured: false,
     cardContext: "EHL, LEAD (Leadership & Organizational Behavior), Fall 2025",
@@ -400,6 +416,8 @@ export const projects: Project[] = [
     slug: "international-marketing",
     coverImage: "/images/projects/international-marketing.png",
     title: "International Marketing Strategy: Festival Antigel Internationalization Plan",
+    lang: "FR",
+    caseType: "Real case",
     oneLiner: "Internationalization strategy for a Geneva-based cultural festival, targeting Lyon as first expansion market.",
     featured: false,
     cardContext: "EHL, International Marketing Strategy, Fall 2024",
