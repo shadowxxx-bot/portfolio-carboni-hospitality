@@ -1,6 +1,8 @@
 // ── Personal page data ──
 // Edit this file to update the Personal page content.
 
+const base = import.meta.env.BASE_URL;
+
 export interface Activity {
   title: string;
   description: string;
@@ -19,7 +21,7 @@ export const personal = {
       title: "Trekking",
       description:
         "Multi-day treks across the Swiss Alps with bivouac setups. Most notable ascent: Haute Cime (Dents du Midi) at 3,257 m.",
-      image: "/personal/trek.jpg",
+      image: `${base}personal/trek.jpg`,
       imageAlt: "Trekking in the Swiss Alps, Dents du Midi",
       imagePosition: "left center",
       tags: ["Planning", "Risk Assessment", "Self-Reliance"],
@@ -28,7 +30,7 @@ export const personal = {
       title: "FPV Drone Build",
       description:
         "Built a custom FPV racing drone from scratch: soldering ESCs, tuning PID loops, and learning to fly through simulators.",
-      image: "/personal/drone.jpg",
+      image: `${base}personal/drone.jpg`,
       imageAlt: "FPV drone build",
       tags: ["Self-Learning", "Troubleshooting", "Iterating Through Failure"],
     },
@@ -36,7 +38,7 @@ export const personal = {
       title: "Competitive Swimming",
       description:
         "Eight years of competitive training, reaching national-level competitions and earning multiple medals.",
-      image: "/personal/swimming.jpg",
+      image: `${base}personal/swimming.jpg`,
       imageAlt: "Competitive swimming",
       imagePosition: "right center",
       tags: ["Discipline", "Resilience", "Long-Term Commitment"],

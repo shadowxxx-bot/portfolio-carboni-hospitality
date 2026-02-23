@@ -3,6 +3,8 @@
 // isFeatured: true → shown on Home + top of Projects page
 // isFeatured: false → shown in "Secondary Projects" section
 
+const base = import.meta.env.BASE_URL;
+
 export interface Project {
   slug: string;
   title: string;
@@ -43,7 +45,7 @@ export const projects: Project[] = [
   // ── Featured Projects ──
   {
     slug: "hotel-asset-management",
-    coverImage: "/images/projects/hotel-asset-management.png",
+    coverImage: `${base}images/projects/hotel-asset-management.png`,
     title: "Hotel Asset Management - Schwarzer Bock Hotel Repositioning Plan",
     lang: "EN",
     caseType: "Fictional case",
@@ -70,9 +72,9 @@ export const projects: Project[] = [
       "CAPEX planning, phasing (2026\u20132028), and hotel valuation using NPV / IRR / exit cap rate",
     ],
     deliverables: [
-      { label: "Slides / Presentation", href: "/files/ham_presentation.pdf" },
-      { label: "Executive Summary (PDF)", href: "/files/ham_executive_summary.pdf" },
-      { label: "Download Excel Model", href: "/files/team5_hotel_asset_management_model.xlsx" },
+      { label: "Slides / Presentation", href: `${base}files/ham_presentation.pdf` },
+      { label: "Executive Summary (PDF)", href: `${base}files/ham_executive_summary.pdf` },
+      { label: "Download Excel Model", href: `${base}files/team5_hotel_asset_management_model.xlsx` },
     ],
     results: [
       "Recommended rebranding from Radisson Blu to MGallery (Accor soft-brand franchise) to leverage the hotel\u2019s heritage and Wiesbaden\u2019s wellness positioning",
@@ -97,7 +99,7 @@ export const projects: Project[] = [
   },
   {
     slug: "real-estate-finance",
-    coverImage: "/images/projects/real-estate-finance.png",
+    coverImage: `${base}images/projects/real-estate-finance.png`,
     title: "Real Estate Finance: Structuring a Hotel Transaction for a PEREF",
     lang: "EN",
     caseType: "Real case",
@@ -148,7 +150,7 @@ export const projects: Project[] = [
   },
   {
     slug: "corporate-finance",
-    coverImage: "/images/projects/corporate-finance.jpg",
+    coverImage: `${base}images/projects/corporate-finance.jpg`,
     title: "Corporate Finance: Market Anomalies",
     lang: "FR",
     caseType: "Real case",
@@ -175,8 +177,8 @@ export const projects: Project[] = [
       "CAPM-based regression analysis to isolate Jensen\u2019s alpha and assess statistical significance of anomaly-driven excess returns",
     ],
     deliverables: [
-      { label: "View Slides (PDF)", href: "/files/fe_market_anomalies_slides.pdf" },
-      { label: "Download Excel", href: "/files/fe_market_anomalies_data.xlsx" },
+      { label: "View Slides (PDF)", href: `${base}files/fe_market_anomalies_slides.pdf` },
+      { label: "Download Excel", href: `${base}files/fe_market_anomalies_data.xlsx` },
     ],
     results: [
       "No statistically significant evidence of the value effect: the Value portfolio\u2019s alpha was positive but non-significant (p-value ~12.5%), while Growth performed similarly",
@@ -201,7 +203,7 @@ export const projects: Project[] = [
   },
   {
     slug: "project-management",
-    coverImage: "/images/projects/project-management.jpeg",
+    coverImage: `${base}images/projects/project-management.jpeg`,
     title: "Project Management: AlbaSim Project Manager Simulation",
     lang: "EN",
     caseType: "Fictional case",
@@ -229,7 +231,7 @@ export const projects: Project[] = [
       "Project execution and control: weekly progress monitoring, Earned Value Management (EVM) tracking, and corrective action planning to maintain quality, cost, and schedule targets",
     ],
     deliverables: [
-      { label: "View Simulation Report (PDF)", href: "/files/pm_simulation_report.pdf" },
+      { label: "View Simulation Report (PDF)", href: `${base}files/pm_simulation_report.pdf` },
     ],
     results: [
       "All 12 project activities completed at 100% with a quality score of 106 (above the target baseline of 100)",
@@ -256,7 +258,7 @@ export const projects: Project[] = [
   // ── Secondary Projects ──
   {
     slug: "corporate-strategy",
-    coverImage: "/images/projects/corporate-strategy.jpg",
+    coverImage: `${base}images/projects/corporate-strategy.jpg`,
     title: "Corporate Strategy: Luxury Alpine Hotel Shoulder-Season Growth Strategy",
     lang: "EN",
     caseType: "Real case",
@@ -307,7 +309,7 @@ export const projects: Project[] = [
   },
   {
     slug: "revenue-management",
-    coverImage: "/images/projects/revenue-management.webp",
+    coverImage: `${base}images/projects/revenue-management.webp`,
     title: "Revenue Management: RevSIM Simulation Report",
     lang: "FR",
     caseType: "Fictional case",
@@ -333,7 +335,7 @@ export const projects: Project[] = [
       "Translated findings into short-term (6-month) and long-term (3-year) RM strategy recommendations backed by performance data",
     ],
     deliverables: [
-      { label: "View Slides (PDF)", href: "/files/revsim_slides.pdf" },
+      { label: "View Slides (PDF)", href: `${base}files/revsim_slides.pdf` },
     ],
     results: [
       "Best month (August Y1): RevPAR of $151, ADR of $197, OCC 76.88%, with MPI 103.8 and RGI 103.6, driven by pre-season marketing spend and $380K direct-channel revenue",
@@ -358,7 +360,7 @@ export const projects: Project[] = [
   },
   {
     slug: "leadership",
-    coverImage: "/images/projects/leadership.png",
+    coverImage: `${base}images/projects/leadership.png`,
     title: "LEAD: Individual Development & Leadership Style Analysis",
     lang: "FR",
     caseType: "Real case",
@@ -386,8 +388,8 @@ export const projects: Project[] = [
       "Action plan with concrete, measurable development steps targeting delegation, exploration breadth, and execution discipline",
     ],
     deliverables: [
-      { label: "View Self-Reflection & Essay (PDF)", href: "/files/lead_individual_project.pdf" },
-      { label: "Watch Video", href: "/files/lead_individual_video.mp4" },
+      { label: "View Self-Reflection & Essay (PDF)", href: `${base}files/lead_individual_project.pdf` },
+      { label: "Watch Video", href: `${base}files/lead_individual_video.mp4` },
     ],
     results: [
       "Leadership profile: action-oriented, execution-focused (Craft 4 > Art 3 > Science 2 on Mintzberg), with a transformational-transactional blend (high inspirational motivation and contingent reward on MLQ) and strongest Belbin roles as Monitor Evaluator and Coordinator",
@@ -412,7 +414,7 @@ export const projects: Project[] = [
   },
   {
     slug: "international-marketing",
-    coverImage: "/images/projects/international-marketing.png",
+    coverImage: `${base}images/projects/international-marketing.png`,
     title: "International Marketing Strategy: Festival Antigel Internationalization Plan",
     lang: "FR",
     caseType: "Fictional case",
@@ -439,7 +441,7 @@ export const projects: Project[] = [
       "Secondary research: press articles, INSEE data, IFPI music consumption reports, cultural industry studies",
     ],
     deliverables: [
-      { label: "View Report (PDF)", href: "/files/rapport_mis_antigel_2024.pdf" },
+      { label: "View Report (PDF)", href: `${base}files/rapport_mis_antigel_2024.pdf` },
     ],
     results: [
       "Lyon selected as optimal market via weighted macro/micro scoring: Francophone cultural affinity, geographic proximity to Geneva (<2h), and a dynamic arts scene (Nuits Sonores)",

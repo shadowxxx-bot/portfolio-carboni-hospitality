@@ -16,7 +16,7 @@ function ScrollToTop() {
 }
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/+$/, "")}>
     <ScrollToTop />
     <Layout>
       <Routes>

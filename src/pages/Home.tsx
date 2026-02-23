@@ -96,7 +96,7 @@ export default function Home() {
         <section className="bg-dark text-text-on-dark h-full flex items-center relative overflow-hidden">
           {/* Portrait — absolute, full height, right-aligned (desktop only) */}
           <img
-            src="/images/home/portrait.png"
+            src={`${import.meta.env.BASE_URL}images/home/portrait.png`}
             alt=""
             aria-hidden="true"
             className="hidden md:block absolute right-0 top-6 h-[calc(100%-1.5rem)] w-auto object-contain object-right-bottom pointer-events-none select-none"

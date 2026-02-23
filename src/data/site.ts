@@ -1,6 +1,8 @@
 // ── Site-wide configuration ──
 // Edit this file to update your personal info, hero, about, and contact details.
 
+const base = import.meta.env.BASE_URL;
+
 export const siteConfig = {
   name: "Alexandre Carboni",
   role: "EHL Student | Finance & Consulting",
@@ -8,7 +10,7 @@ export const siteConfig = {
   lookingFor: "Looking for a 6-month internship in consulting or finance, starting September 2025, based in Switzerland or remote.",
 
   links: {
-    cv: "/cv-alexandre-carboni.pdf",       // Place PDF in /public
+    cv: `${base}cv-alexandre-carboni.pdf`,       // Place PDF in /public
     linkedin: "https://linkedin.com/in/alexandre-carboni-322023176",
     email: "alexandre.carboni@ehl.ch",
     phone: "+41 79 550 37 41",

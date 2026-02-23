@@ -1,6 +1,8 @@
 // ── Certifications data ──
 // Edit this file to update your certifications.
 
+const base = import.meta.env.BASE_URL;
+
 export interface Certification {
   name: string;
   organization: string;
@@ -17,8 +19,8 @@ export const certifications: Certification[] = [
     organization: "Procter & Gamble",
     date: "September 2024",
     proof: "Leadership fundamentals and teamwork principles through P&G\u2019s competitive business simulation among top European students.",
-    certificateLink: "/certificates/pg_leadership_skills.pdf",
-    logo: "/logos/pg.jpg",
+    certificateLink: `${base}certificates/pg_leadership_skills.pdf`,
+    logo: `${base}logos/pg.jpg`,
     logoAlt: "P&G logo",
   },
   {
@@ -26,8 +28,8 @@ export const certifications: Certification[] = [
     organization: "JPMorgan Chase & Co. / Forage",
     date: "August 2024",
     proof: "M&A target screening and DCF valuation with scenario adjustments; produced a client-ready 2-pager.",
-    certificateLink: "/certificates/jpmorgan_forage_simulation.pdf",
-    logo: "/logos/forage.png",
+    certificateLink: `${base}certificates/jpmorgan_forage_simulation.pdf`,
+    logo: `${base}logos/forage.png`,
     logoAlt: "Forage logo",
   },
   {
@@ -35,8 +37,8 @@ export const certifications: Certification[] = [
     organization: "AmplifyMe",
     date: "July 2024",
     proof: "Investment banking simulation covering market making, P&L management, and risk assessment across multiple trading rounds.",
-    certificateLink: "/certificates/amplifyme_investment_banking.pdf",
-    logo: "/logos/amplifyme.png",
+    certificateLink: `${base}certificates/amplifyme_investment_banking.pdf`,
+    logo: `${base}logos/amplifyme.png`,
     logoAlt: "AmplifyMe logo",
   },
 ];

@@ -2,6 +2,8 @@
 // Edit this file to update your professional experience.
 // Entries are displayed in the order listed (put most recent first).
 
+const base = import.meta.env.BASE_URL;
+
 export interface ExperienceEntry {
   role: string;
   company: string;
@@ -35,8 +37,8 @@ export const experience: ExperienceEntry[] = [
     ],
     tags: ["Operations", "Client Relations", "Administration"],
     deliverables: [
-      { label: "Internship Certificate", href: "/experience/certificat-stage-regus.pdf" },
-      { label: "Internship Report", href: "/experience/rapport-stage-regus.pdf" },
+      { label: "Internship Certificate", href: `${base}experience/certificat-stage-regus.pdf` },
+      { label: "Internship Report", href: `${base}experience/rapport-stage-regus.pdf` },
     ],
   },
   {
@@ -61,7 +63,7 @@ export const experience: ExperienceEntry[] = [
     ],
     tags: ["Event Management", "Hospitality", "Coordination", "Logistics"],
     deliverables: [
-      { label: "Internship Certificate", href: "/experience/certificat-stage-wilson.pdf" },
+      { label: "Internship Certificate", href: `${base}experience/certificat-stage-wilson.pdf` },
     ],
   },
   {
