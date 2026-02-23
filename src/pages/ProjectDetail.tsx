@@ -40,6 +40,14 @@ export default function ProjectDetail() {
           <ProjectTags lang={project.lang} caseType={project.caseType} />
         </div>
 
+        {/* Confidentiality note — if present */}
+        {project.confidentialityNote && (
+          <div className="mb-6 px-4 py-3 rounded-lg bg-light-grey border border-gray-200">
+            <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary mb-1">Confidentiality Note</p>
+            <p className="text-xs leading-relaxed text-text-secondary">{project.confidentialityNote}</p>
+          </div>
+        )}
+
         {/* Deliverables — right below title */}
         {project.deliverables.length > 0 && (
           <nav aria-label="Project deliverables" className="flex flex-wrap gap-3 mb-8">
@@ -95,8 +103,8 @@ export default function ProjectDetail() {
         <section className="mb-8">
           <SectionHeading>My contribution</SectionHeading>
           <ul className="space-y-2">
-            {project.contribution.map((c, i) => (
-              <li key={i} className="text-sm text-text-primary flex gap-2">
+            {project.contribution.map((c) => (
+              <li key={c} className="text-sm text-text-primary flex gap-2">
                 <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
                 {c}
               </li>
@@ -108,8 +116,8 @@ export default function ProjectDetail() {
         <section className="mb-8">
           <SectionHeading>Results</SectionHeading>
           <ul className="space-y-2">
-            {project.results.map((r, i) => (
-              <li key={i} className="text-sm text-text-primary flex gap-2">
+            {project.results.map((r) => (
+              <li key={r} className="text-sm text-text-primary flex gap-2">
                 <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
                 {r}
               </li>

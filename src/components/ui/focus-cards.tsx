@@ -31,7 +31,9 @@ const FocusCard = React.memo(
       <img
         src={project.coverImage}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
       />
 
       {/* Permanent gradient overlay — stronger on hover */}

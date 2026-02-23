@@ -11,9 +11,9 @@ export default function Certifications() {
         </p>
 
         <div className="grid gap-6">
-          {certifications.map((cert, idx) => (
+          {certifications.map((cert) => (
             <article
-              key={idx}
+              key={cert.name}
               className="border border-gray-100 rounded-lg p-6 hover:shadow-sm transition-shadow"
             >
               <div className="flex items-center gap-6 md:gap-10">

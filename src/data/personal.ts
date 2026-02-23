@@ -6,6 +6,7 @@ export interface Activity {
   description: string;
   image: string | null;
   imageAlt: string;
+  imagePosition?: string;
   tags: string[];
 }
 
@@ -20,6 +21,7 @@ export const personal = {
         "Multi-day treks across the Swiss Alps with bivouac setups. Most notable ascent: Haute Cime (Dents du Midi) at 3,257 m.",
       image: "/personal/trek.jpg",
       imageAlt: "Trekking in the Swiss Alps, Dents du Midi",
+      imagePosition: "left center",
       tags: ["Planning", "Risk Assessment", "Self-Reliance"],
     },
     {
@@ -34,8 +36,9 @@ export const personal = {
       title: "Competitive Swimming",
       description:
         "Eight years of competitive training, reaching national-level competitions and earning multiple medals.",
-      image: null,
+      image: "/personal/swimming.jpg",
       imageAlt: "Competitive swimming",
+      imagePosition: "right center",
       tags: ["Discipline", "Resilience", "Long-Term Commitment"],
     },
   ] as Activity[],

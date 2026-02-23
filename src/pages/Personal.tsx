@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo, memo } from "react";
 import { useMotionValue, type MotionValue } from "framer-motion";
 import { personal } from "@/data/personal";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -11,7 +11,7 @@ const zigzag: ("left" | "right")[] = ["right", "left", "right"];
 const SECTION_COUNT = 3;
 
 /* ── Activity row (layout untouched) ── */
-function ActivityRow({
+const ActivityRow = memo(function ActivityRow({
   activity,
   imagePosition,
   progress,
@@ -38,7 +38,9 @@ function ActivityRow({
           <img
             src={activity.image}
             alt={activity.imageAlt}
+            decoding="async"
             className="w-full h-[300px] sm:h-[340px] md:h-[380px] lg:h-[calc(100vh-5rem)] object-cover"
+            style={activity.imagePosition ? { objectPosition: activity.imagePosition } : undefined}
             loading="lazy"
           />
         ) : (
@@ -88,7 +90,7 @@ function ActivityRow({
       </div>
     </div>
   );
-}
+});
 
 /* ── Personal page ── */
 export default function Personal() {
@@ -96,13 +98,13 @@ export default function Personal() {
   const imgRef0 = useRef<HTMLDivElement>(null);
   const imgRef1 = useRef<HTMLDivElement>(null);
   const imgRef2 = useRef<HTMLDivElement>(null);
-  const imgRefs = [imgRef0, imgRef1, imgRef2];
+  const imgRefs = useMemo(() => [imgRef0, imgRef1, imgRef2], []);
 
   /* ── Single source of truth: one progress (0‥1) per section ── */
   const p0 = useMotionValue(0);
   const p1 = useMotionValue(0);
   const p2 = useMotionValue(0);
-  const progresses = [p0, p1, p2];
+  const progresses = useMemo(() => [p0, p1, p2], [p0, p1, p2]);
 
   /* ── Which section (if any) currently owns the wheel ── */
   const activeSection = useRef<number | null>(null);

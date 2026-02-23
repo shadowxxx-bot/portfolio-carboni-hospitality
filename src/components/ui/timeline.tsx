@@ -18,12 +18,21 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [height, setHeight] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const cachedOffsets = useRef<number[]>([]);
+  const activeRef = useRef(-1);
 
   useEffect(() => {
     if (ref.current) {
       setHeight(ref.current.getBoundingClientRect().height);
     }
-  }, [ref]);
+    // Cache offsetTop values once after mount + on resize
+    const cacheOffsets = () => {
+      cachedOffsets.current = itemRefs.current.map((el) => el?.offsetTop ?? 0);
+    };
+    cacheOffsets();
+    window.addEventListener("resize", cacheOffsets);
+    return () => window.removeEventListener("resize", cacheOffsets);
+  }, [data.length]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -33,19 +42,17 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
-  // Determine active index: the last item whose top the animated line has reached
+  // Determine active index using cached offsets (avoids DOM reads on every scroll tick)
   useMotionValueEvent(heightTransform, "change", (latestHeight) => {
     let newActive = -1;
-    for (let i = 0; i < itemRefs.current.length; i++) {
-      const el = itemRefs.current[i];
-      if (!el) continue;
-      // offsetTop = item position within the ref container
-      // Activate 40px before the line actually reaches the dot
-      if (latestHeight >= el.offsetTop - 40) {
+    const offsets = cachedOffsets.current;
+    for (let i = 0; i < offsets.length; i++) {
+      if (latestHeight >= offsets[i] - 40) {
         newActive = i;
       }
     }
-    if (newActive !== activeIndex) {
+    if (newActive !== activeRef.current) {
+      activeRef.current = newActive;
       setActiveIndex(newActive);
     }
   });
@@ -65,7 +72,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
 
           return (
             <div
-              key={index}
+              key={item.title}
               ref={setItemRef(index)}
               className="flex justify-start pt-10 md:pt-20 md:gap-4"
             >

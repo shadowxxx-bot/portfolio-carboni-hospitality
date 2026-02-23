@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface ProjectTagsProps {
@@ -8,7 +9,7 @@ interface ProjectTagsProps {
   className?: string;
 }
 
-export function ProjectTags({
+export const ProjectTags = memo(function ProjectTags({
   lang,
   caseType,
   variant = "light",
@@ -26,4 +27,4 @@ export function ProjectTags({
       <span className={tagClass}>({caseType})</span>
     </>
   );
-}
+});

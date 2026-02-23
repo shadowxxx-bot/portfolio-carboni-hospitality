@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, memo } from "react";
 import {
   motion,
   useScroll,
@@ -45,6 +45,16 @@ export function TextGradientScroll({
 
   const effectiveProgress = externalProgress || scrollYProgress;
 
+  /* Pre-compute letter/word offsets once per text change (avoids recalculation every render) */
+  const letterData = useMemo(() => {
+    const words = text.split(" ");
+    const totalLetters = words.reduce((n, w) => n + w.length, 0);
+    const offsets: number[] = [];
+    for (let i = 0, acc = 0; i < words.length; acc += words[i].length, i++)
+      offsets.push(acc);
+    return { words, totalLetters, offsets };
+  }, [text]);
+
   /* ── Mobile fallback: plain paragraph, zero animation overhead ── */
   if (!isDesktop) {
     return <p className={className}>{text}</p>;
@@ -55,11 +65,7 @@ export function TextGradientScroll({
      A plain breakable " " sits between words so the browser wraps
      the paragraph normally (no \u00A0 that caused horizontal overflow). */
   if (type === "letter") {
-    const words = text.split(" ");
-    const totalLetters = words.reduce((n, w) => n + w.length, 0);
-    const offsets: number[] = [];
-    for (let i = 0, acc = 0; i < words.length; acc += words[i].length, i++)
-      offsets.push(acc);
+    const { words, totalLetters, offsets } = letterData;
 
     return (
       <p ref={internalRef} className={className} style={{ overflowWrap: "break-word" }}>
@@ -86,14 +92,13 @@ export function TextGradientScroll({
   }
 
   /* ── Word mode (default) ── */
-  const words = text.split(" ");
   return (
     <p ref={internalRef} className={className}>
-      {words.map((word, i) => (
+      {letterData.words.map((word, i) => (
         <AnimatedUnit
           key={i}
           progress={effectiveProgress}
-          range={[i / words.length, (i + 1) / words.length]}
+          range={[i / letterData.words.length, (i + 1) / letterData.words.length]}
         >
           {word}{" "}
         </AnimatedUnit>
@@ -103,7 +108,7 @@ export function TextGradientScroll({
 }
 
 /* ── Single animated span (inline, no extra margin/padding) ── */
-function AnimatedUnit({
+const AnimatedUnit = memo(function AnimatedUnit({
   children,
   progress,
   range,
@@ -114,4 +119,4 @@ function AnimatedUnit({
 }) {
   const color = useTransform(progress, range, [GHOST, REVEALED]);
   return <motion.span style={{ color }}>{children}</motion.span>;
-}
+});

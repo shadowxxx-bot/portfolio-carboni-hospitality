@@ -9,10 +9,21 @@ export interface ExperienceEntry {
   location: string;
   bullets: string[];
   tags: string[];
+  deliverables?: { label: string; href: string }[];
   reportLink?: string;
 }
 
 export const experience: ExperienceEntry[] = [
+  {
+    role: "BSc in International Hospitality Management",
+    company: "EHL Hospitality Business School",
+    dates: "Sep 2022 \u2013 Jul 2026",
+    location: "Lausanne, CH",
+    bullets: [
+      "Relevant modules: Corporate Finance, Hotel Asset Management, Real Estate Finance, Corporate Strategy",
+    ],
+    tags: ["Finance", "Hotel Asset Management", "Real Estate", "Strategy"],
+  },
   {
     role: "Community Associate Trainee",
     company: "IWG | Regus Airport & Balexert",
@@ -23,6 +34,10 @@ export const experience: ExperienceEntry[] = [
       "Maintained accurate records in internal tracking tools",
     ],
     tags: ["Operations", "Client Relations", "Administration"],
+    deliverables: [
+      { label: "Internship Certificate", href: "/experience/certificat-stage-regus.pdf" },
+      { label: "Internship Report", href: "/experience/rapport-stage-regus.pdf" },
+    ],
   },
   {
     role: "Brand Ambassador",
@@ -45,6 +60,9 @@ export const experience: ExperienceEntry[] = [
       "Coordinated suppliers and internal teams to ensure smooth execution under tight deadlines",
     ],
     tags: ["Event Management", "Hospitality", "Coordination", "Logistics"],
+    deliverables: [
+      { label: "Internship Certificate", href: "/experience/certificat-stage-wilson.pdf" },
+    ],
   },
   {
     role: "Grenadier Soldier",

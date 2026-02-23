@@ -16,11 +16,11 @@ export const siteConfig = {
 
   hero: {
     languages: ["French (native)", "English (C1)", "Russian (B1)", "German (basic)"],
-    tools: ["Excel", "Refinitiv", "Power BI", "Canva"],
-    focusAreas: ["Hospitality Strategy", "Asset Management", "Finance & Analytics"],
+    tools: ["Excel (adv)", "Refinitiv", "Canva"],
+    focusAreas: ["Analytics", "Consulting", "Business Development"],
   },
 
-  about: `I'm a third-year EHL student specialising in hotel asset management, hospitality strategy, and corporate finance. My projects combine financial modeling (DCF, valuation) and data-driven analysis applied to real hospitality assets, delivering structured, presentation-ready outputs. Operational and analytical roles have strengthened my ability to communicate with stakeholders, solve problems rigorously, and perform under pressure.`,
+  about: `I am a third-year EHL student specialising in hotel asset management, hospitality strategy, and corporate finance. My projects combine financial modeling (DCF, valuation) and data-driven analysis applied to real hospitality assets, delivering structured, presentation-ready outputs. Operational and analytical roles have strengthened my ability to communicate with stakeholders, solve problems rigorously, and perform under pressure.`,
 
   philosophy: {
     left: `I approach every project with discipline: define the objective, structure the plan, execute consistently. My EHL training bridges hospitality knowledge with financial rigor, from building DCF models in Excel to extracting market data on Refinitiv. Every deliverable I produce is grounded in evidence and built for decision-makers.`,

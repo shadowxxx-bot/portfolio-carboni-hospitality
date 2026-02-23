@@ -37,13 +37,24 @@ const timelineData: TimelineEntry[] = experience.map((entry) => ({
         {entry.location}
       </p>
       <ul className="list-none space-y-2 mb-4">
-        {entry.bullets.slice(0, 3).map((b, i) => (
-          <li key={i} className="text-sm text-text-secondary flex gap-2">
+        {entry.bullets.slice(0, 3).map((b) => (
+          <li key={b} className="text-sm text-text-secondary flex gap-2">
             <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
             {b}
           </li>
         ))}
       </ul>
+      {entry.deliverables && entry.deliverables.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {entry.deliverables.map((d) => (
+            <NeonButton asChild variant="default" size="sm" key={d.label}>
+              <a href={d.href} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-4 h-4" /> {d.label}
+              </a>
+            </NeonButton>
+          ))}
+        </div>
+      )}
       <p className="text-xs uppercase tracking-wide font-semibold text-text-secondary mb-2">
         Key skills
       </p>
@@ -52,13 +63,6 @@ const timelineData: TimelineEntry[] = experience.map((entry) => ({
           <Tag key={t} label={t} />
         ))}
       </div>
-      {entry.reportLink && (
-        <NeonButton asChild variant="default" size="sm" className="mt-3">
-          <a href={entry.reportLink} target="_blank" rel="noopener noreferrer">
-            <FileText className="w-4 h-4" /> View report (PDF)
-          </a>
-        </NeonButton>
-      )}
     </div>
   ),
 }));

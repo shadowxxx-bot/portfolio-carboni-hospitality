@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import { FileText, Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { NeonButton } from "@/components/ui/neon-button";
@@ -12,7 +12,7 @@ import { useDockVariant } from "@/contexts/DockVariantContext";
 
 
 /** Shared content — rendered in both fixed visual layer and flow layer */
-function FeaturedContent() {
+const FeaturedContent = memo(function FeaturedContent() {
   return (
     <div className="container mx-auto px-6">
       <h2 className="text-2xl font-bold text-text-primary mb-10">Featured Projects</h2>
@@ -31,7 +31,7 @@ function FeaturedContent() {
       </div>
     </div>
   );
-}
+});
 
 export default function Home() {
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -49,11 +49,22 @@ export default function Home() {
 
   // Track when the door transition is complete
   const [transitionDone, setTransitionDone] = useState(false);
+  const lastVariantRef = useRef<"light" | "dark">("dark");
+  const lastDoneRef = useRef(false);
 
   // Switch dock variant as hero slides away + track transition completion
+  // Only trigger state updates when the value actually changes (avoids re-renders on every scroll pixel)
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setVariant(v > 0.5 ? "light" : "dark");
-    setTransitionDone(v >= 0.99);
+    const newVariant = v > 0.5 ? "light" : "dark";
+    if (newVariant !== lastVariantRef.current) {
+      lastVariantRef.current = newVariant;
+      setVariant(newVariant);
+    }
+    const newDone = v >= 0.99;
+    if (newDone !== lastDoneRef.current) {
+      lastDoneRef.current = newDone;
+      setTransitionDone(newDone);
+    }
   });
 
   // ── Hero door: slides UP (0 → -100%) ──
@@ -80,7 +91,7 @@ export default function Home() {
       {/* Hero: fixed overlay, always sharp, slides up like a door */}
       <motion.div
         style={{ y: heroY }}
-        className="fixed top-0 left-0 right-0 z-40 h-screen"
+        className="fixed top-0 left-0 right-0 z-40 h-screen pointer-events-none"
       >
         <section className="bg-dark text-text-on-dark h-full flex items-center relative overflow-hidden">
           {/* Portrait — absolute, full height, right-aligned (desktop only) */}
@@ -92,7 +103,7 @@ export default function Home() {
           />
 
           {/* Text content — stays on the left, never overlaps */}
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="container mx-auto px-6 relative z-10 pointer-events-auto">
             <div className="max-w-2xl">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
                 {siteConfig.name}
@@ -167,7 +178,7 @@ export default function Home() {
       {/* Featured visual: fixed behind hero, locked in place, clip-path reveal */}
       <motion.div
         style={{ clipPath, filter: featuredFilter, opacity: fixedLayerOpacity }}
-        className="fixed top-0 left-0 right-0 z-30 h-screen overflow-hidden pointer-events-none"
+        className="fixed top-0 left-0 right-0 z-30 h-screen overflow-hidden"
         aria-hidden="true"
       >
         <div className="bg-white h-full pt-20 pb-20">
