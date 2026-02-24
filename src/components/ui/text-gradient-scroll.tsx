@@ -19,6 +19,17 @@ interface TextGradientScrollProps {
 const GHOST = "#d4d4d4"; // neutral-300
 const REVEALED = "#171717"; // neutral-900
 
+/** How wide each unit's transition window is (0–1).
+ *  Larger = more units transition simultaneously = smoother wave. */
+const SPREAD = 0.15;
+
+/** Compute overlapping [start, end] so multiple units reveal at once. */
+function waveRange(i: number, total: number): [number, number] {
+  const start = (i / total) * (1 - SPREAD);
+  const end = start + SPREAD;
+  return [start, end];
+}
+
 export function TextGradientScroll({
   text,
   className,
@@ -78,7 +89,7 @@ export function TextGradientScroll({
                 <AnimatedUnit
                   key={i}
                   progress={effectiveProgress}
-                  range={[i / totalLetters, (i + 1) / totalLetters]}
+                  range={waveRange(i, totalLetters)}
                 >
                   {ch}
                 </AnimatedUnit>
@@ -98,7 +109,7 @@ export function TextGradientScroll({
         <AnimatedUnit
           key={i}
           progress={effectiveProgress}
-          range={[i / letterData.words.length, (i + 1) / letterData.words.length]}
+          range={waveRange(i, letterData.words.length)}
         >
           {word}{" "}
         </AnimatedUnit>

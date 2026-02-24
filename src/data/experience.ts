@@ -11,7 +11,7 @@ export interface ExperienceEntry {
   location: string;
   bullets: string[];
   tags: string[];
-  deliverables?: { label: string; href: string }[];
+  deliverables?: { label: string; href: string; internal?: boolean }[];
   reportLink?: string;
 }
 
@@ -25,6 +25,9 @@ export const experience: ExperienceEntry[] = [
       "Relevant modules: Corporate Finance, Hotel Asset Management, Real Estate Finance, Corporate Strategy",
     ],
     tags: ["Finance", "Hotel Asset Management", "Real Estate", "Strategy"],
+    deliverables: [
+      { label: "View all projects", href: "/projects", internal: true },
+    ],
   },
   {
     role: "Community Associate Trainee",

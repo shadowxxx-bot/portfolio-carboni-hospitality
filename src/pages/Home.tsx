@@ -9,6 +9,8 @@ import { featuredProjects } from "@/data/projects";
 import { FocusCards } from "@/components/ui/focus-cards";
 import { Tag } from "@/components/Tag";
 import { useDockVariant } from "@/contexts/DockVariantContext";
+import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import { CopyToast } from "@/components/CopyToast";
 
 
 /** Shared content — rendered in both fixed visual layer and flow layer */
@@ -23,7 +25,7 @@ const FeaturedContent = memo(function FeaturedContent() {
         <NeonButton asChild variant="ghost" size="lg">
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-lg font-semibold text-accent border-accent/30 hover:border-accent/50"
+            className="inline-flex items-center gap-2 text-lg font-semibold text-accent border border-accent/50 hover:border-accent/80"
           >
             View all projects <ArrowRight className="w-5 h-5" />
           </Link>
@@ -36,6 +38,8 @@ const FeaturedContent = memo(function FeaturedContent() {
 export default function Home() {
   const spacerRef = useRef<HTMLDivElement>(null);
   const { setVariant } = useDockVariant();
+  const { copied: emailCopied, handleClick: copyEmail } = useCopyToClipboard(siteConfig.links.email);
+  const { copied: phoneCopied, handleClick: copyPhone } = useCopyToClipboard(siteConfig.links.phone.replace(/\s/g, ""));
   const { scrollYProgress } = useScroll({
     target: spacerRef,
     offset: ["start start", "end start"],
@@ -138,12 +142,12 @@ export default function Home() {
                   </a>
                 </NeonButton>
                 <NeonButton asChild variant="dark">
-                  <a href={`mailto:${siteConfig.links.email}`}>
+                  <a href={`mailto:${siteConfig.links.email}`} onClick={copyEmail}>
                     <Mail className="w-4 h-4" /> Email
                   </a>
                 </NeonButton>
                 <NeonButton asChild variant="dark">
-                  <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}>
+                  <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`} onClick={copyPhone}>
                     <Phone className="w-4 h-4" /> Phone
                   </a>
                 </NeonButton>
@@ -199,6 +203,9 @@ export default function Home() {
       <section className={`bg-white pt-20 pb-20 ${transitionDone ? "relative z-[35]" : "invisible"}`}>
         <FeaturedContent />
       </section>
+
+      <CopyToast visible={emailCopied} message="Email copied to clipboard" />
+      <CopyToast visible={phoneCopied} message="Phone number copied to clipboard" />
     </>
   );
 }

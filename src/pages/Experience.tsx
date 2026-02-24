@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { experience } from "@/data/experience";
 import { siteConfig } from "@/data/site";
 import { Tag } from "@/components/Tag";
@@ -48,9 +49,15 @@ const timelineData: TimelineEntry[] = experience.map((entry) => ({
         <div className="flex flex-wrap gap-2 mb-4">
           {entry.deliverables.map((d) => (
             <NeonButton asChild variant="default" size="sm" key={d.label}>
-              <a href={d.href} target="_blank" rel="noopener noreferrer">
-                <FileText className="w-4 h-4" /> {d.label}
-              </a>
+              {d.internal ? (
+                <Link to={d.href}>
+                  {d.label}
+                </Link>
+              ) : (
+                <a href={d.href} target="_blank" rel="noopener noreferrer">
+                  <FileText className="w-4 h-4" /> {d.label}
+                </a>
+              )}
             </NeonButton>
           ))}
         </div>

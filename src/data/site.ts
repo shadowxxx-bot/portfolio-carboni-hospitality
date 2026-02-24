@@ -11,7 +11,7 @@ export const siteConfig = {
 
   links: {
     cv: `${base}cv-alexandre-carboni.pdf`,       // Place PDF in /public
-    linkedin: "https://linkedin.com/in/alexandre-carboni-322023176",
+    linkedin: "https://www.linkedin.com/in/alexandre-carboni-322023176",
     email: "alexandre.carboni@ehl.ch",
     phone: "+41 79 550 37 41",
   },

@@ -131,9 +131,9 @@ export default function Personal() {
   useEffect(() => {
     if (!captureActive) return;
 
-    const THRESHOLD = 150; // px from viewport centre
-    const SPEED = 0.001; // progress per px of normalised delta
-    const MAX_DELTA = 80; // clamp fast trackpad swipes
+    const THRESHOLD = 200; // px from viewport centre
+    const SPEED = 0.003; // progress per px of normalised delta
+    const MAX_DELTA = 120; // clamp fast trackpad swipes
 
     /** Is image `i` centred in the viewport? */
     const isCentered = (i: number): boolean => {

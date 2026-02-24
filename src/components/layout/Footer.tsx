@@ -1,7 +1,12 @@
 import { siteConfig } from "@/data/site";
 import { NeonButton } from "@/components/ui/neon-button";
+import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import { CopyToast } from "@/components/CopyToast";
 
 export function Footer() {
+  const { copied: emailCopied, handleClick: copyEmail } = useCopyToClipboard(siteConfig.links.email);
+  const { copied: phoneCopied, handleClick: copyPhone } = useCopyToClipboard(siteConfig.links.phone.replace(/\s/g, ""));
+
   return (
     <footer className="bg-dark text-text-muted-dark py-10 mt-auto">
       <div className="container mx-auto px-6">
@@ -11,7 +16,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-6 text-sm">
             <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
-              <a href={`mailto:${siteConfig.links.email}`}>
+              <a href={`mailto:${siteConfig.links.email}`} onClick={copyEmail}>
                 Email
               </a>
             </NeonButton>
@@ -21,7 +26,7 @@ export function Footer() {
               </a>
             </NeonButton>
             <NeonButton asChild variant="ghost" size="sm" className="text-text-muted-dark hover:text-white">
-              <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`}>
+              <a href={`tel:${siteConfig.links.phone.replace(/\s/g, "")}`} onClick={copyPhone}>
                 Phone
               </a>
             </NeonButton>
@@ -31,6 +36,8 @@ export function Footer() {
           &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
         </div>
       </div>
+      <CopyToast visible={emailCopied} message="Email copied to clipboard" />
+      <CopyToast visible={phoneCopied} message="Phone number copied to clipboard" />
     </footer>
   );
 }
